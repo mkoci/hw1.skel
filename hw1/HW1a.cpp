@@ -1,110 +1,138 @@
-// ===============================================================
-// Computer Graphics Homework Solutions
-// Copyright (C) 2017 by George Wolberg
-//
-// HW1a.cpp - HW1a class
-//
-// Written by: George Wolberg, 2017
-// ===============================================================
+
 
 #include "HW1a.h"
 
-// init array of 16 vertices for letter 'P'
-float Vertices[] = {
-	-0.5f , -0.75f,
-	-0.5f , -0.5f,
-	-0.5f , -0.25f,
-	-0.5f ,  0.0f,
-	-0.5f ,  0.25f,
-	-0.5f ,  0.5f,
-	-0.25f,  0.75f,
-	 0.0f ,  0.75f,
-	 0.25f,  0.75f,
-	 0.5f ,  0.75f,
-	 0.75f,  0.5f,
-	 0.75f,  0.25f,
-	 0.5f ,  0.0f,
-	 0.25f,  0.0f,
-	 0.0f ,  0.0f,
-	-0.25f,  0.0f
-};
 
-static int DrawModes[] = {
-	GL_POINTS,
-	GL_LINES,
-	GL_LINE_STRIP,
-	GL_LINE_LOOP,
-	GL_TRIANGLES,
-	GL_TRIANGLE_STRIP,
-	GL_TRIANGLE_FAN,
-	GL_QUADS,
-	GL_POLYGON
-};
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// HW1a::HW1a:
-//
-// HW1a constructor.
-//
 HW1a::HW1a(const QGLFormat &glf, QWidget *parent)
 	: HW(glf, parent)
-{
-}
+{}
 
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// HW1a::initializeGL:
-//
-// Initialization routine before display loop.
-// Gets called once before the first time resizeGL() or paintGL() is called.
-//
+
 void
 HW1a::initializeGL()
 {
-	// PUT YOUR CODE HERE
+
+	glClearColor(0.0, 0.0, 0.0, 0.0);	// set background color
+	glColor3f(1.0, 1.0, 1.0);		// set foreground color
 }
 
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// HW1a::resizeGL:
-//
-// Resize event handler.
-// The input parameters are the window width (w) and height (h).
-//
+
 void
 HW1a::resizeGL(int w, int h)
 {
-	// PUT YOUR CODE HERE
+	m_winW = w;
+	m_winH = h;
+
+	glViewport(0, 0, w, h);
+
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
 }
 
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// HW1a::paintGL:
-//
-// Update GL scene.
-//
+
 void
 HW1a::paintGL()
 {
-	// PUT YOUR CODE HERE
+	int i, w2, h2;
+	w2 = m_winW;
+	h2 = m_winH;
+
+
+	float Vertices[] = {
+		-0.5f , -0.75f,
+		-0.5f , -0.5f,
+		-0.5f , -0.25f,
+		-0.5f ,  0.0f,
+		-0.5f ,  0.25f,
+		-0.5f ,  0.5f,
+		-0.25f,  0.75f,
+		0.0f ,  0.75f,
+		0.25f,  0.75f,
+		0.5f ,  0.75f,
+		0.75f,  0.5f,
+		0.75f,  0.25f,
+		0.5f ,  0.0f,
+		0.25f,  0.0f,
+		0.0f ,  0.0f,
+		-0.25f,  0.0f
+	};
+
+
+
+	QVector2D p[] = {
+		QVector2D(0.2, 0.2), QVector2D(0.2, 0.3), QVector2D(0.2, 0.4), QVector2D(0.2, 0.5),
+		QVector2D(0.2, 0.6), QVector2D(0.2, 0.7), QVector2D(0.2, 0.8), QVector2D(0.3, 0.8),
+		QVector2D(0.4, 0.8), QVector2D(0.5, 0.8), QVector2D(0.575, 0.725),QVector2D(0.6, 0.65),
+		QVector2D(0.575, 0.575), QVector2D(0.5, 0.5), QVector2D(0.4, 0.5), QVector2D(0.3, 0.5) };
+
+
+
+	glClear(GL_COLOR_BUFFER_BIT);
+
+
+	glViewport(0, 0, w2 / 3, h2 / 3);
+	glBegin(GL_POINTS);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y()); //glVertex2f(p[i].x(),p[i].y());
+	glEnd();
+
+	glViewport(w2 / 3, 0, w2 / 3, h2 / 3);
+	glBegin(GL_LINES);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glViewport(w2 - w2 / 3, 0, w2 / 3, h2 / 3);
+	glBegin(GL_LINE_STRIP);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glViewport(0, h2 / 3, w2 / 3, h2 / 3);
+	glBegin(GL_LINE_LOOP);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glLoadIdentity();
+	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0); //turn P back to normal position
+	glViewport(w2 / 3, h2 / 3, w2 / 3, h2 / 3);
+	glBegin(GL_TRIANGLES);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glViewport(w2 - w2 / 3, h2 / 3, w2 / 3, h2 / 3);
+	glBegin(GL_TRIANGLE_STRIP);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glViewport(0, h2 - h2 / 3, w2 / 3, h2 / 3);
+	glBegin(GL_TRIANGLE_FAN);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glViewport(w2 / 3, h2 - h2 / 3, w2 / 3, h2 / 3);
+	glBegin(GL_QUADS);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+
+	glViewport(w2 - w2 / 3, h2 - h2 / 3, w2 / 3, h2 / 3);
+	glBegin(GL_POLYGON);
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
+	glEnd();
+	glFlush();
 }
 
 
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// HW1a::controlPanel:
-//
-// Create control panel groupbox.
-//
 QGroupBox*
 HW1a::controlPanel()
 {
 	// init group box
 	QGroupBox *groupBox = new QGroupBox("Homework 1a");
-	groupBox->setStyleSheet(GroupBoxStyle);
 
 	return(groupBox);
 }
