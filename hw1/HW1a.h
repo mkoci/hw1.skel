@@ -7,15 +7,15 @@
 class HW1a : public HW {
 	Q_OBJECT
 public:
-	HW1a(const QGLFormat &glf, QWidget *parent = 0);
-	QGroupBox*	controlPanel();
+	HW1a(const QGLFormat &glf, QWidget *parent=0);		
+	QGroupBox*	controlPanel();		
 
 protected:
-	void		initializeGL();
-	void		resizeGL(int, int);
-	void		paintGL();
+	void		initializeGL();		
+	void		resizeGL(int, int);	
+	void		paintGL();		
 private:
-	int		 m_winW;
+	int		 m_winW;			
 	int		 m_winH;
 
 };

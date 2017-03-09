@@ -29,7 +29,7 @@ HW1a::resizeGL(int w, int h)
 
 	glViewport(0, 0, w, h);
 
-
+	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
@@ -45,7 +45,7 @@ HW1a::paintGL()
 	w2 = m_winW;
 	h2 = m_winH;
 
-
+	
 	float Vertices[] = {
 		-0.5f , -0.75f,
 		-0.5f , -0.5f,
@@ -54,35 +54,32 @@ HW1a::paintGL()
 		-0.5f ,  0.25f,
 		-0.5f ,  0.5f,
 		-0.25f,  0.75f,
-		0.0f ,  0.75f,
-		0.25f,  0.75f,
-		0.5f ,  0.75f,
-		0.75f,  0.5f,
-		0.75f,  0.25f,
-		0.5f ,  0.0f,
-		0.25f,  0.0f,
-		0.0f ,  0.0f,
+		 0.0f ,  0.75f,
+		 0.25f,  0.75f,
+		 0.5f ,  0.75f,
+		 0.75f,  0.5f,
+		 0.75f,  0.25f,
+		 0.5f ,  0.0f,
+		 0.25f,  0.0f,
+		 0.0f ,  0.0f,
 		-0.25f,  0.0f
 	};
 
 
 
-	QVector2D p[] = {
-		QVector2D(0.2, 0.2), QVector2D(0.2, 0.3), QVector2D(0.2, 0.4), QVector2D(0.2, 0.5),
-		QVector2D(0.2, 0.6), QVector2D(0.2, 0.7), QVector2D(0.2, 0.8), QVector2D(0.3, 0.8),
-		QVector2D(0.4, 0.8), QVector2D(0.5, 0.8), QVector2D(0.575, 0.725),QVector2D(0.6, 0.65),
-		QVector2D(0.575, 0.575), QVector2D(0.5, 0.5), QVector2D(0.4, 0.5), QVector2D(0.3, 0.5) };
+	QVector2D p[] = { 
+		QVector2D(0.2, 0.2), QVector2D(0.2, 0.3), QVector2D(0.2, 0.4), QVector2D(0.2, 0.5), 
+		QVector2D(0.2, 0.6), QVector2D(0.2, 0.7), QVector2D(0.2, 0.8), QVector2D(0.3, 0.8), 
+		QVector2D(0.4, 0.8), QVector2D(0.5, 0.8), QVector2D(0.575, 0.725),QVector2D( 0.6, 0.65 ), 
+		QVector2D( 0.575, 0.575 ), QVector2D( 0.5, 0.5 ), QVector2D( 0.4, 0.5 ), QVector2D( 0.3, 0.5 )};
 
 
-
-	glClear(GL_COLOR_BUFFER_BIT);
-
-
+	
 	glViewport(0, 0, w2 / 3, h2 / 3);
 	glBegin(GL_POINTS);
-	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y()); //glVertex2f(p[i].x(),p[i].y());
+	for (i = 0; i<16; i++) glVertex2f(p[i].x(),p[i].y()); //glVertex2f(p[i].x(),p[i].y());
 	glEnd();
-
+	
 	glViewport(w2 / 3, 0, w2 / 3, h2 / 3);
 	glBegin(GL_LINES);
 	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
@@ -124,7 +121,7 @@ HW1a::paintGL()
 	glBegin(GL_POLYGON);
 	for (i = 0; i<16; i++) glVertex2f(p[i].x(), p[i].y());
 	glEnd();
-	glFlush();
+	glFlush(); 
 }
 
 
