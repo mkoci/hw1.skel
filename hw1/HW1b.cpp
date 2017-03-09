@@ -18,6 +18,18 @@
 HW1b::HW1b(const QGLFormat &glf, QWidget *parent)
 	: HW(glf, parent)
 {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+	m_subdivide = 0;
+	m_aspectCheck = true;
+	maxW = 1;
+	maxH = 1;
+	//m_changeColor = true;
+	m_theta = 0;
+
+=======
+>>>>>>> origin/christine
 	// init vars
 	m_theta		= 0;
 	m_subdivisions	= 4;
@@ -25,6 +37,10 @@ HW1b::HW1b(const QGLFormat &glf, QWidget *parent)
 	m_twist		= 1;
 	maxW = 1.0;
 	maxH = 1.0;
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> origin/christine
 }
 
 
@@ -46,29 +62,65 @@ HW1b::initializeGL()
 	glColor3f   (1.0, 1.0, 1.0);		// set foreground color
 }
 
+<<<<<<< HEAD
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> origin/christine
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // HW1b::resizeGL:
 //
 // Resize event handler.
 // The input parameters are the window width (w) and height (h).
 //
+<<<<<<< HEAD
+=======
+>>>>>>> master
+>>>>>>> origin/christine
 void
 HW1b::resizeGL(int w, int h)
 {
 	m_winW = w;
 	m_winH = h;
+<<<<<<< HEAD
+	ar = (float) m_winH / m_winW;
+=======
+<<<<<<< HEAD
+	ar = (float)m_winH / m_winW;
+>>>>>>> origin/christine
+
+	
+
+<<<<<<< HEAD
+	if (m_aspectCheck == true){
+		if (ar<1.0){
+=======
+
+	if (m_aspectCheck == true) {
+		if (ar<1.0) {
+=======
 	ar = (float) m_winH / m_winW;
 
 	
 
 	if (m_aspectCheck == true){
 		if (ar<1.0){
+>>>>>>> master
+>>>>>>> origin/christine
 			maxH = 1.0;
 			maxW = 1.0 / ar;
 
 		}
+<<<<<<< HEAD
 		else{
+=======
+<<<<<<< HEAD
+		else {
+=======
+		else{
+>>>>>>> master
+>>>>>>> origin/christine
 			maxH = 1.0*ar;
 			maxW = 1.0;
 		}
@@ -98,6 +150,35 @@ HW1b::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
+<<<<<<< HEAD
+	
+		
+=======
+<<<<<<< HEAD
+>>>>>>> origin/christine
+
+		glBegin(GL_TRIANGLES);
+
+		for (i = 0; i < m_points.size(); i++){
+
+<<<<<<< HEAD
+			glColor3f(m_colors[i][0], m_colors[i][1], m_colors[i][2]);
+			glVertex2f(m_points[i][0], m_points[i][1]);
+=======
+	glBegin(GL_TRIANGLES);
+
+	for (i = 0; i < m_point.size(); i++) {
+
+		glColor3f(m_color[i][0], m_color[i][1], m_color[i][2]);
+		glVertex2f(m_point[i][0], m_point[i][1]);
+
+	}
+
+
+
+	glEnd();
+	glFlush();
+=======
 	
 		
 
@@ -107,6 +188,20 @@ HW1b::paintGL()
 
 			glColor3f(m_colors[i][0], m_colors[i][1], m_colors[i][2]);
 			glVertex2f(m_points[i][0], m_points[i][1]);
+
+		
+		}
+
+		
+		
+		glEnd();
+		glFlush();
+}
+>>>>>>> master
+
+
+
+>>>>>>> origin/christine
 
 		
 		}
@@ -282,6 +377,53 @@ HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
 	}
 	else triangle(a, b, c);
 
+<<<<<<< HEAD
+=======
+
+
+<<<<<<< HEAD
+=======
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// HW1b::divideTriangle:
+//
+// Recursive subdivision of triangle (a,b,c). Recurse count times.
+//
+void
+HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
+{
+	if (count>0) {
+
+		float midab1 = (a.x() + b.x()) / 2.0;
+		float midab2 = (a.y() + b.y()) / 2.0;
+
+		float midac1 = (a.x() + c.x()) / 2.0;
+		float midac2 = (a.y() + c.y()) / 2.0;
+
+		float midbc1 = (b.x() + c.x()) / 2.0;
+		float midbc2 = (b.y() + c.y()) / 2.0;
+
+		vec2 tema;
+		tema.setX(midab1);
+		tema.setY(midab2);
+		
+		vec2 temb;
+		temb.setX(midac1);
+		temb.setY(midac2);
+		
+		vec2 temc;
+		temc.setX(midbc1);
+		temc.setY(midbc2);
+
+
+		divideTriangle(a, tema, temb, count - 1);
+		divideTriangle(c, temb, temc, count - 1);
+		divideTriangle(b, temc, tema, count - 1);
+		divideTriangle(tema, temb, temc, count-1);
+	}
+	else triangle(a, b, c);
+
+>>>>>>> master
+>>>>>>> origin/christine
 }
 
 
