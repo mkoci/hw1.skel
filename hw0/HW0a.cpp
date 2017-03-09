@@ -31,7 +31,7 @@
 // HW0a constructor.
 //
 HW0a::HW0a(const QGLFormat &glf, QWidget *parent)
-	 : HW(glf, parent)
+	: HW(glf, parent)
 {}
 
 
@@ -47,7 +47,7 @@ HW0a::initializeGL()
 {
 	// init state variables
 	glClearColor(0.0, 0.0, 0.0, 0.0);	// set background color
-	glColor3f   (1.0, 1.0, 1.0);		// set foreground color
+	glColor3f(1.0, 1.0, 1.0);		// set foreground color
 }
 
 
@@ -85,10 +85,10 @@ HW0a::paintGL()
 
 	// define polygon
 	glBegin(GL_POLYGON);
-		glVertex2f(0.25, 0.25);
-		glVertex2f(0.75, 0.25);
-		glVertex2f(0.75, 0.75);
-		glVertex2f(0.25, 0.75);
+	glVertex2f(0.25, 0.25);
+	glVertex2f(0.75, 0.25);
+	glVertex2f(0.75, 0.75);
+	glVertex2f(0.25, 0.75);
 	glEnd();
 }
 
