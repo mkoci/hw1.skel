@@ -8,6 +8,7 @@
 HW1b::HW1b(const QGLFormat &glf, QWidget *parent)
 	: HW(glf, parent)
 {
+<<<<<<< HEAD
 	m_subdivide = 0;
 	m_aspectCheck = true;
 	maxW = 1;
@@ -15,6 +16,15 @@ HW1b::HW1b(const QGLFormat &glf, QWidget *parent)
 	//m_changeColor = true;
 	m_theta = 0;
 
+=======
+	// init vars
+	m_theta		= 0;
+	m_subdivisions	= 4;
+	m_updateColor	= 1;
+	m_twist		= 1;
+	maxW = 1.0;
+	maxH = 1.0;
+>>>>>>> master
 }
 
 
@@ -36,23 +46,45 @@ void HW1b::initPoint() {
 	divide_triangle(p2[0], p2[1], p2[2], m_subdivide);
 }
 
+<<<<<<< HEAD
 
+=======
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// HW1b::resizeGL:
+//
+// Resize event handler.
+// The input parameters are the window width (w) and height (h).
+//
+>>>>>>> master
 void
 HW1b::resizeGL(int w, int h)
 {
 	m_winW = w;
 	m_winH = h;
+<<<<<<< HEAD
 	ar = (float)m_winH / m_winW;
 
 
 
 	if (m_aspectCheck == true) {
 		if (ar<1.0) {
+=======
+	ar = (float) m_winH / m_winW;
+
+	
+
+	if (m_aspectCheck == true){
+		if (ar<1.0){
+>>>>>>> master
 			maxH = 1.0;
 			maxW = 1.0 / ar;
 
 		}
+<<<<<<< HEAD
 		else {
+=======
+		else{
+>>>>>>> master
 			maxH = 1.0*ar;
 			maxW = 1.0;
 		}
@@ -78,6 +110,7 @@ HW1b::paintGL()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 
+<<<<<<< HEAD
 
 
 
@@ -94,6 +127,26 @@ HW1b::paintGL()
 
 	glEnd();
 	glFlush();
+=======
+	
+		
+
+		glBegin(GL_TRIANGLES);
+
+		for (i = 0; i < m_points.size(); i++){
+
+			glColor3f(m_colors[i][0], m_colors[i][1], m_colors[i][2]);
+			glVertex2f(m_points[i][0], m_points[i][1]);
+
+		
+		}
+
+		
+		
+		glEnd();
+		glFlush();
+}
+>>>>>>> master
 
 
 
@@ -193,6 +246,48 @@ void HW1b::divide_triangle(vec2 a, vec2 b, vec2 c, int k) {
 
 
 
+<<<<<<< HEAD
+=======
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+// HW1b::divideTriangle:
+//
+// Recursive subdivision of triangle (a,b,c). Recurse count times.
+//
+void
+HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
+{
+	if (count>0) {
+
+		float midab1 = (a.x() + b.x()) / 2.0;
+		float midab2 = (a.y() + b.y()) / 2.0;
+
+		float midac1 = (a.x() + c.x()) / 2.0;
+		float midac2 = (a.y() + c.y()) / 2.0;
+
+		float midbc1 = (b.x() + c.x()) / 2.0;
+		float midbc2 = (b.y() + c.y()) / 2.0;
+
+		vec2 tema;
+		tema.setX(midab1);
+		tema.setY(midab2);
+		
+		vec2 temb;
+		temb.setX(midac1);
+		temb.setY(midac2);
+		
+		vec2 temc;
+		temc.setX(midbc1);
+		temc.setY(midbc2);
+
+
+		divideTriangle(a, tema, temb, count - 1);
+		divideTriangle(c, temb, temc, count - 1);
+		divideTriangle(b, temc, tema, count - 1);
+		divideTriangle(tema, temb, temc, count-1);
+	}
+	else triangle(a, b, c);
+
+>>>>>>> master
 }
 void HW1b::triangle(vec2 a, vec2 b, vec2 c) {
 
