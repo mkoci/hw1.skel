@@ -55,10 +55,6 @@ HW1b::initializeGL()
 void
 HW1b::resizeGL(int w, int h)
 {
-	m_winW = w;
-	m_winH = h;
-
-	
 	float ar = (float)w / h;
 	// set xmax, ymax
 	float xmax=0, ymax=0;
