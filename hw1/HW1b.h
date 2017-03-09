@@ -42,9 +42,13 @@ private:
 	int		  m_winW;			// window width
 	int		  m_winH;			// window height
 	int		  m_twist;
-	float		  m_theta;
+	float	  m_theta;
+	float     ar;
+	float 	  maxH;
+	float     maxW;
 	int		  m_subdivisions;
 	int		  m_updateColor;
+	bool      m_aspectCheck;
 	QSlider		 *m_sliderTheta;
 	QSlider		 *m_sliderSubdiv;
 	QSpinBox	 *m_spinBoxTheta;

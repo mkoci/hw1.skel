@@ -23,6 +23,8 @@ HW1b::HW1b(const QGLFormat &glf, QWidget *parent)
 	m_subdivisions	= 4;
 	m_updateColor	= 1;
 	m_twist		= 1;
+	maxW = 1.0;
+	maxH = 1.0;
 }
 
 
@@ -45,7 +47,6 @@ HW1b::initializeGL()
 }
 
 
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // HW1b::resizeGL:
 //
@@ -55,7 +56,28 @@ HW1b::initializeGL()
 void
 HW1b::resizeGL(int w, int h)
 {
-	// PUT YOUR CODE HERE
+	m_winW = w;
+	m_winH = h;
+	ar = (float) m_winH / m_winW;
+
+	
+
+	if (m_aspectCheck == true){
+		if (ar<1.0){
+			maxH = 1.0;
+			maxW = 1.0 / ar;
+
+		}
+		else{
+			maxH = 1.0*ar;
+			maxW = 1.0;
+		}
+
+	}
+	glViewport(0, 0, w, h);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-maxW, maxW, -maxH, maxH, -1.0, 1.0);
 }
 
 
@@ -68,7 +90,31 @@ HW1b::resizeGL(int w, int h)
 void
 HW1b::paintGL()
 {
-	// PUT YOUR CODE HERE
+	int i, w2, h2;
+	w2 = m_winW;
+	h2 = m_winH;
+
+
+	glClear(GL_COLOR_BUFFER_BIT);
+
+
+	
+		
+
+		glBegin(GL_TRIANGLES);
+
+		for (i = 0; i < m_points.size(); i++){
+
+			glColor3f(m_colors[i][0], m_colors[i][1], m_colors[i][2]);
+			glVertex2f(m_points[i][0], m_points[i][1]);
+
+		
+		}
+
+		
+		
+		glEnd();
+		glFlush();
 }
 
 
@@ -205,7 +251,37 @@ HW1b::initBuffers()
 void
 HW1b::divideTriangle(vec2 a, vec2 b, vec2 c, int count)
 {
-	// PUT YOUR CODE HERE
+	if (count>0) {
+
+		float midab1 = (a.x() + b.x()) / 2.0;
+		float midab2 = (a.y() + b.y()) / 2.0;
+
+		float midac1 = (a.x() + c.x()) / 2.0;
+		float midac2 = (a.y() + c.y()) / 2.0;
+
+		float midbc1 = (b.x() + c.x()) / 2.0;
+		float midbc2 = (b.y() + c.y()) / 2.0;
+
+		vec2 tema;
+		tema.setX(midab1);
+		tema.setY(midab2);
+		
+		vec2 temb;
+		temb.setX(midac1);
+		temb.setY(midac2);
+		
+		vec2 temc;
+		temc.setX(midbc1);
+		temc.setY(midbc2);
+
+
+		divideTriangle(a, tema, temb, count - 1);
+		divideTriangle(c, temb, temc, count - 1);
+		divideTriangle(b, temc, tema, count - 1);
+		divideTriangle(tema, temb, temc, count-1);
+	}
+	else triangle(a, b, c);
+
 }
 
 
