@@ -62,7 +62,10 @@ HW1a::HW1a(const QGLFormat &glf, QWidget *parent)
 void
 HW1a::initializeGL()
 {
-	// PUT YOUR CODE HERE
+	glClearColor(0.0, 0.0, 0.0, 0.0);	// background black
+	glColor3f(1.0, 1.0, 1.0);		// foreground white
+
+	
 }
 
 
@@ -76,11 +79,16 @@ HW1a::initializeGL()
 void
 HW1a::resizeGL(int w, int h)
 {
-	// PUT YOUR CODE HERE
+	m_winW = w;
+	m_winH = h;
+
+	glViewport(0, 0, w, h);
+
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 }
-
-
-
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 // HW1a::paintGL:
 //
@@ -89,7 +97,26 @@ HW1a::resizeGL(int w, int h)
 void
 HW1a::paintGL()
 {
-	// PUT YOUR CODE HERE
+	int i, j, k = 0, n;
+	int w3rd = m_winW / 3;
+	int h3rd = m_winH / 3;
+
+	glClear(GL_COLOR_BUFFER_BIT);
+
+	
+	for (i = 0; i < 3; i++) {
+		for (j = 0; j < 3; j++) {
+			glViewport(j*w3rd, i*h3rd, w3rd, h3rd);
+			glMatrixMode(GL_PROJECTION);
+			glLoadIdentity();
+			glOrtho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+			glBegin(DrawModes[k]);
+			for (n = 0; n<16; n++) glVertex2f(Vertices[2*n], Vertices[2*n+1]);
+			k++;
+			glEnd();
+		}
+	} 
+	glFlush();
 }
 
 
